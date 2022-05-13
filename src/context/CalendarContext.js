@@ -49,6 +49,9 @@ function CalendarState(props) {
         // Set task for tomorrow
         let tomorrow = new Date(dateCopy)
         tomorrow.setDate(dateCopy.getDate() + 1)
+
+        let yesterday = new Date(dateCopy)
+        yesterday.setDate(dateCopy.getDate() - 1)
         
         //Database
         let database = getDatabase();
@@ -59,6 +62,16 @@ function CalendarState(props) {
         //console.log(daily_tasks);
         database = database.filter((task) => task.date !== today);
         database.push(daily_tasks);
+
+        let fixedTasks = database.filter(x => sameDay(yesterday, new Date(x.original_date)))
+        database = database.filter(x => !sameDay(yesterday, new Date(x.original_date)))
+
+        fixedTasks.forEach(task => {
+          task.date = yesterday
+        })
+
+        database.push(fixedTasks)
+        
         setDatabase(database);
         //let new_days = state.days.map( day => sameDay(today, day.date) ? {date: today, tasks: []} : day);
         return {
@@ -96,7 +109,6 @@ function CalendarState(props) {
           task: action.payload
         }
       case SAVE_TASK: {
-        console.log('Saving task!', action.payload)
         let db = getDatabase();
         const task = action.payload;
         if(!task.id) { // new Task
@@ -107,6 +119,7 @@ function CalendarState(props) {
             return t.id === task.id ? task : t;
           })
         }
+        console.log('Task saved?!', task)
         setDatabase(db);
         return {
           ...state

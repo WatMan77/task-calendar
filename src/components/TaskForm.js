@@ -43,18 +43,12 @@ function TaskForm() {
     }
     setError(false);
 
-    let dateCopy = new Date()
-    console.log("What is today?", date)
-
-    // Set task for tomorrow
-    let tomorrow = new Date(dateCopy)
-    tomorrow.setDate(dateCopy.getDate() + 1)
-
     saveTask({
       ...task,
       date: date,
       name: name,
       color: color,
+      original_date: date
     });
     setDate(date);
     closeModal();

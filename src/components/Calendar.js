@@ -7,7 +7,6 @@ function Calendar() {
   const { date, days, setDate, updateDaily } = useContext(CalendarContext);
 
   useEffect(() => {
-    console.log("Hi!", new Date())
     setDate(new Date());
     updateDaily();
     //setDate(new Date());
