@@ -99,6 +99,8 @@ function CalendarState(props) {
         console.log('Saving task!', action.payload)
         let db = getDatabase();
         const task = action.payload;
+        console.log(task.date);
+        console.log(task.original_date);
         if(!task.id) { // new Task
           task.id = uuidv4();
           db.push(task);

@@ -18,6 +18,7 @@ function Day({day, date}) {
         <div className={`day ${style}`} onClick={()=>setDate(day.date)}>  
             <div className="task-day">       
                 <div className="tasks">
+                    {selected ? console.log(day.tasks) : ""}
                     {day.tasks.map(task=>(
                         <Task key={task.id} task={task} style={getStyle(task.color)}/>
                     ))}
