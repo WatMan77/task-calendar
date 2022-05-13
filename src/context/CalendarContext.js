@@ -5,6 +5,7 @@ const SET_DATE = "SET_DATE";
 const SET_TASK = "SET_TASK";
 const SAVE_TASK = "SAVE_TASK";
 const DELETE_TASK = "DELETE_TASK";
+const DAILY_TASKS = "DAILY_TASKS";
 
 const getDatabase = ()=> {
   let db = localStorage.getItem("$calendar_db");
@@ -41,6 +42,28 @@ function CalendarState(props) {
   // Dispatch 
   const [state, dispatch] = useReducer((state, action) => {
     switch (action.type) {
+      case DAILY_TASKS:
+        const today = new Date()
+        let dateCopy = new Date()
+
+        // Set task for tomorrow
+        let tomorrow = new Date(dateCopy)
+        tomorrow.setDate(dateCopy.getDate() + 1)
+        
+        //Database
+        let database = getDatabase();
+        const daily_tasks = database.filter((task) => sameDay(today, task.date));
+        daily_tasks.forEach(task => {
+          task.date = tomorrow;
+        });
+        //console.log(daily_tasks);
+        database = database.filter((task) => task.date !== today);
+        database.push(daily_tasks);
+        setDatabase(database);
+        //let new_days = state.days.map( day => sameDay(today, day.date) ? {date: today, tasks: []} : day);
+        return {
+          ...state,
+        }
       case SET_DATE: // Set current date
 
         const date = action.payload;
@@ -105,6 +128,12 @@ function CalendarState(props) {
   }, initialState);
 
   // CRUD
+  const updateDaily = () => {
+    dispatch({
+      type: DAILY_TASKS
+    });
+  }
+
   const setDate = (date)=> {
     dispatch({
       type: SET_DATE,
@@ -144,7 +173,8 @@ function CalendarState(props) {
         setDate,
         setTask,
         saveTask,
-        deleteTask
+        deleteTask,
+        updateDaily
       }}
     >
       {props.children}

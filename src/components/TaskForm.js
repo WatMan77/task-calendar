@@ -50,24 +50,12 @@ function TaskForm() {
     let tomorrow = new Date(dateCopy)
     tomorrow.setDate(dateCopy.getDate() + 1)
 
-    console.log('Same day?', sameDay(date, dateCopy))
-
-    if (sameDay(date, dateCopy)) {
-      saveTask({
-        ...task,
-        date: tomorrow,
-        name: name,
-        color: color,
-      })
-    } else {
-      saveTask({
-        ...task,
-        date: date,
-        name: name,
-        color: color
-      })
-    }
-
+    saveTask({
+      ...task,
+      date: date,
+      name: name,
+      color: color,
+    });
     setDate(date);
     closeModal();
 

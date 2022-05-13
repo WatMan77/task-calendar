@@ -4,13 +4,13 @@ import Day from "./Day";
 
 function Calendar() {
 
-  const { date, days, setDate } = useContext(CalendarContext);
+  const { date, days, setDate, updateDaily } = useContext(CalendarContext);
 
   useEffect(() => {
     console.log("Hi!", new Date())
     setDate(new Date());
-
-
+    updateDaily();
+    //setDate(new Date());
     // eslint-disable-next-line
   }, []);
 
