@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Modal from "react-modal";
 import { CalendarContext } from "../context/CalendarContext";
 import { CirclePicker } from "react-color";
+import { sameDay } from "../context/CalendarContext";
 
 const customStyles = {
   content: {
@@ -16,7 +17,7 @@ const customStyles = {
 
 function TaskForm() {
 
-  const { date, task, setTask, saveTask, setDate, deleteTask } =  useContext(CalendarContext);
+  const { date, task, setTask, saveTask, setDate, deleteTask } = useContext(CalendarContext);
 
   const [name, setName] = useState("");
   const [color, setColor] = useState("#f44336");
@@ -35,10 +36,10 @@ function TaskForm() {
   };
 
   const _saveTask = () => {
- 
-    if(name.trim().length < 1) {
-        setError(true);
-        return;
+
+    if (name.trim().length < 1) {
+      setError(true);
+      return;
     }
     setError(false);
 
@@ -49,18 +50,30 @@ function TaskForm() {
     let tomorrow = new Date(dateCopy)
     tomorrow.setDate(dateCopy.getDate() + 1)
 
-    saveTask({
-      ...task,
-      date: tomorrow,
-      name: name,
-      color: color,
-    });
+    console.log('Same day?', sameDay(date, dateCopy))
+
+    if (sameDay(date, dateCopy)) {
+      saveTask({
+        ...task,
+        date: tomorrow,
+        name: name,
+        color: color,
+      })
+    } else {
+      saveTask({
+        ...task,
+        date: date,
+        name: name,
+        color: color
+      })
+    }
+
     setDate(date);
     closeModal();
 
   };
 
-  const _deleteTask = ()=> {
+  const _deleteTask = () => {
     deleteTask(task.id);
     setDate(date);
     closeModal();
@@ -76,7 +89,7 @@ function TaskForm() {
       contentLabel="Task Form"
     >
       <div className="task-form">
-        
+
         <label>Name</label>
         <input
           name="name"

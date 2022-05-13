@@ -7,7 +7,10 @@ function Calendar() {
   const { date, days, setDate } = useContext(CalendarContext);
 
   useEffect(() => {
+    console.log("Hi!", new Date())
     setDate(new Date());
+
+
     // eslint-disable-next-line
   }, []);
 
