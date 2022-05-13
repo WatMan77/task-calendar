@@ -33,6 +33,7 @@ export const sameDay = (a, b) => {
 
 function CalendarState(props) {
   
+  console.log('Lets go!')
   const initialState = {
     date: new Date(),
     days: [],
