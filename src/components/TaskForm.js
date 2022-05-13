@@ -51,7 +51,7 @@ function TaskForm() {
 
     saveTask({
       ...task,
-      date: tomorrow,
+      date: date,
       name: name,
       color: color,
     });
