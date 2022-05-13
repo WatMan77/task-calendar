@@ -56,14 +56,13 @@ function CalendarState(props) {
         daily_tasks.forEach(task => {
           task.date = tomorrow;
         });
-        console.log(daily_tasks);
+        //console.log(daily_tasks);
         database = database.filter((task) => task.date !== today);
         database.push(daily_tasks);
         setDatabase(database);
         //let new_days = state.days.map( day => sameDay(today, day.date) ? {date: today, tasks: []} : day);
         return {
           ...state,
-          //days: new_days
         }
       case SET_DATE: // Set current date
 
