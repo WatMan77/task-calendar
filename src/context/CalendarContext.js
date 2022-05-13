@@ -56,11 +56,12 @@ function CalendarState(props) {
         daily_tasks.forEach(task => {
           task.date = tomorrow;
         });
-        //console.log(state.days);
-        let new_days = state.days.map( day => sameDay(today, day.date) ? {date: today, tasks: []} : day);
+        console.log(daily_tasks);
+        
+        //let new_days = state.days.map( day => sameDay(today, day.date) ? {date: today, tasks: []} : day);
         return {
           ...state,
-          days: new_days
+          //days: new_days
         }
       case SET_DATE: // Set current date
 
