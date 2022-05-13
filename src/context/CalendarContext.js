@@ -87,6 +87,7 @@ function CalendarState(props) {
           task: action.payload
         }
       case SAVE_TASK: {
+        console.log('Saving task!', action.payload)
         let db = getDatabase();
         const task = action.payload;
         if(!task.id) { // new Task
