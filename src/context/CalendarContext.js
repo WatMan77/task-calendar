@@ -44,15 +44,12 @@ function CalendarState(props) {
   const [state, dispatch] = useReducer((state, action) => {
     switch (action.type) {
       case DAILY_TASKS:
-        const today = new Date()
-        let dateCopy = new Date()
+        const today = state.date
+        let dateCopy = state.date
 
         // Set task for tomorrow
         let tomorrow = new Date(dateCopy)
         tomorrow.setDate(dateCopy.getDate() + 1)
-
-        let yesterday = new Date(dateCopy)
-        yesterday.setDate(dateCopy.getDate() - 1)
         
         //Database
         let database = getDatabase();
@@ -60,18 +57,10 @@ function CalendarState(props) {
         daily_tasks.forEach(task => {
           task.date = tomorrow;
         });
-        //console.log(daily_tasks);
+  
         database = database.filter((task) => task.date !== today);
         database.push(daily_tasks);
 
-        let fixedTasks = database.filter(x => sameDay(yesterday, new Date(x.original_date)))
-        database = database.filter(x => !sameDay(yesterday, new Date(x.original_date)))
-
-        fixedTasks.forEach(task => {
-          task.date = yesterday
-        })
-
-        database.push(fixedTasks)
         
         setDatabase(database);
         //let new_days = state.days.map( day => sameDay(today, day.date) ? {date: today, tasks: []} : day);
