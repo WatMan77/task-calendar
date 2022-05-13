@@ -57,9 +57,11 @@ function CalendarState(props) {
         daily_tasks.forEach(task => {
           task.date = tomorrow;
         });
-  
+        
         database = database.filter((task) => task.date !== today);
-        database.push(daily_tasks);
+        if(daily_tasks.length) {
+          database.push(daily_tasks);
+        }
 
         
         setDatabase(database);
