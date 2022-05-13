@@ -85,6 +85,7 @@ function TaskForm() {
           type="text"
           placeholder="Task Name"
         />
+        <label>Time of Day</label> 
         <label>Color</label>
 
         <div>
