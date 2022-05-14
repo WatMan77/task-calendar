@@ -16,7 +16,9 @@ const customStyles = {
 
 function DummyForm() {
 
-  const { dummy_open, openDummy } = useContext(CalendarContext);
+  const { dummy_open, openDummy, dummy_task } = useContext(CalendarContext);
+
+  
 
   const closeModal = () => {
     openDummy(false);
