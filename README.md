@@ -1,8 +1,6 @@
-# task-calendar
-:date: Web App where user can add his tasks, written in React
+### How to use?
+Add a task to the current day. Refresh it and you will se it being moved to "tomorrow" and today you will do something fun.
 
-### [Demo](https://sergiss.github.io/task-calendar/)
+Change date to tomorrow, refresh and you will see that the tasks are back in their original spot and the dummy tasks are gone!!
 
-![Task Calendar](https://raw.githubusercontent.com/sergiss/task-calendar/master/task-calendar.png)
-
-www.sergiosoriano.com
+Now you missed your deadlines, but did something fun instead.
