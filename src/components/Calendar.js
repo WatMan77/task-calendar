@@ -28,7 +28,7 @@ function Calendar() {
 
   useEffect(() => {
     setDate(date);
-    //updateDaily();
+    updateDaily();
     //setDate(new Date());
     // eslint-disable-next-line
   }, []);
