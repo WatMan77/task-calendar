@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { CalendarContext, sameDay } from '../context/CalendarContext';
 import { contrast } from '../utils/utils';
 import Task from './Task';
+import DummyTask from './DummyTask';
 
 function Day({day, date}) {
 
@@ -22,6 +23,7 @@ function Day({day, date}) {
                     {day.tasks.map(task=>(
                         <Task key={task.id} task={task} style={getStyle(task.color)}/>
                     ))}
+                    {sameDay(day.date, new Date()) ? <DummyTask /> : null}
                                     
                 </div>
                 <h3> {day.date.getDate()} </h3>
