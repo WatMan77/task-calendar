@@ -92,8 +92,7 @@ function TaskForm() {
         value={timeOfDay}
         onChange={(e) => setTime(e.target.value)}
         type="time"
-        placeholder="booga"
-        
+        placeholder="booga"        
         />
         <label>Color</label>
 
