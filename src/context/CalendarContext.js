@@ -8,6 +8,7 @@ const SAVE_TASK = "SAVE_TASK";
 const DELETE_TASK = "DELETE_TASK";
 const DAILY_TASKS = "DAILY_TASKS";
 const GET_DUMMY = "GET_DUMMY";
+const OPEN_DUMMY = "OPEN_DUMMY";
 
 const getDatabase = ()=> {
   let db = localStorage.getItem("$calendar_db");
@@ -40,6 +41,7 @@ function CalendarState(props) {
     days: [],
     task: null,
     dummy_task: null,
+    dummy_open: false,
   };
 
   // Dispatch 
@@ -116,6 +118,11 @@ function CalendarState(props) {
           ...state,
           task: action.payload
         }
+      case OPEN_DUMMY:
+        return {
+          ...state,
+          dummy_open: action.payload
+        }
       case SAVE_TASK: {
         let db = getDatabase();
         const task = action.payload;
@@ -151,6 +158,12 @@ function CalendarState(props) {
   }, initialState);
 
   // CRUD
+  const openDummy = (value) => {
+    dispatch({
+      type: OPEN_DUMMY,
+      payload: value
+    })
+  }
   const getDummy = () => {
     dispatch({
       type: GET_DUMMY
@@ -198,13 +211,15 @@ function CalendarState(props) {
         days: state.days,
         task: state.task,
         dummy_task: state.dummy_task,
+        dummy_open: state.dummy_open,
 
         setDate,
         setTask,
         saveTask,
         deleteTask,
         updateDaily,
-        getDummy
+        getDummy,
+        openDummy
       }}
     >
       {props.children}

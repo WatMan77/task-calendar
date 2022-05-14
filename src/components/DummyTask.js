@@ -1,11 +1,11 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext} from 'react'
 import { CalendarContext } from '../context/CalendarContext';
 
 function DummyTask({task, style}) {
-    console.log(style)
+    const {openDummy} = useContext(CalendarContext);
     
     return(
-        <p style={style}>{task.name}</p>
+        <p style={style} onClick={()=> {openDummy(true)} }>{task.name}</p>
     );
 }
 

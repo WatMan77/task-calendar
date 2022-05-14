@@ -16,7 +16,7 @@ const customStyles = {
 
 function TaskForm() {
 
-  const { date, task, setTask, saveTask, setDate, deleteTask } = useContext(CalendarContext);
+  const { date, task, setTask, saveTask, setDate, deleteTask} = useContext(CalendarContext);
 
   const [name, setName] = useState("");
   const [color, setColor] = useState("#f44336");
