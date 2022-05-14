@@ -1,11 +1,13 @@
 import React, { createContext, useReducer } from "react";
 import { v4 as uuidv4 } from 'uuid';
+import dummy_tasks from "../utils/dummy_tasks";
 
 const SET_DATE = "SET_DATE";
 const SET_TASK = "SET_TASK";
 const SAVE_TASK = "SAVE_TASK";
 const DELETE_TASK = "DELETE_TASK";
 const DAILY_TASKS = "DAILY_TASKS";
+const GET_DUMMY = "GET_DUMMY";
 
 const getDatabase = ()=> {
   let db = localStorage.getItem("$calendar_db");
@@ -36,29 +38,48 @@ function CalendarState(props) {
   const initialState = {
     date: new Date(),
     days: [],
-    task: null
+    task: null,
+    dummy_task: null,
   };
 
   // Dispatch 
   const [state, dispatch] = useReducer((state, action) => {
     switch (action.type) {
+      case GET_DUMMY:
+        let index = Math.floor(Math.random() * dummy_tasks.length)
+        let chosen_dummy = dummy_tasks[index];
+      return{
+        ...state,
+        dummy_task: chosen_dummy,
+      }
       case DAILY_TASKS:
-        const today = new Date()
-        let dateCopy = new Date()
+        const today = state.date
+        let dateCopy = state.date
 
         // Set task for tomorrow
         let tomorrow = new Date(dateCopy)
         tomorrow.setDate(dateCopy.getDate() + 1)
+
+        //THIS WORKS I DONT KNOW WHY!!
+        let dayBefore = new Date(dateCopy)
+        dayBefore.setDate(dateCopy.getDate() - 1)
         
         //Database
         let database = getDatabase();
         const daily_tasks = database.filter((task) => sameDay(today, task.date));
         daily_tasks.forEach(task => {
           task.date = tomorrow;
+          if(sameDay(dayBefore, new Date(task.original_date))){
+            task.date = dayBefore
+          }
         });
-        //console.log(daily_tasks);
+  
         database = database.filter((task) => task.date !== today);
-        database.push(daily_tasks);
+        if(daily_tasks.length) {
+          database.push(daily_tasks);
+        }
+
+        
         setDatabase(database);
         //let new_days = state.days.map( day => sameDay(today, day.date) ? {date: today, tasks: []} : day);
         return {
@@ -96,9 +117,10 @@ function CalendarState(props) {
           task: action.payload
         }
       case SAVE_TASK: {
-        console.log('Saving task!', action.payload)
         let db = getDatabase();
         const task = action.payload;
+        console.log(task.date);
+        console.log(task.original_date);
         if(!task.id) { // new Task
           task.id = uuidv4();
           db.push(task);
@@ -107,6 +129,7 @@ function CalendarState(props) {
             return t.id === task.id ? task : t;
           })
         }
+        console.log('Task saved?!', task)
         setDatabase(db);
         return {
           ...state
@@ -128,6 +151,11 @@ function CalendarState(props) {
   }, initialState);
 
   // CRUD
+  const getDummy = () => {
+    dispatch({
+      type: GET_DUMMY
+    });
+  }
   const updateDaily = () => {
     dispatch({
       type: DAILY_TASKS
@@ -169,12 +197,14 @@ function CalendarState(props) {
         date: state.date,
         days: state.days,
         task: state.task,
+        dummy_task: state.dummy_task,
 
         setDate,
         setTask,
         saveTask,
         deleteTask,
-        updateDaily
+        updateDaily,
+        getDummy
       }}
     >
       {props.children}

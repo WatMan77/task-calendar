@@ -16,7 +16,7 @@ const customStyles = {
 
 function TaskForm() {
 
-  const { date, task, setTask, saveTask, setDate, deleteTask } =  useContext(CalendarContext);
+  const { date, task, setTask, saveTask, setDate, deleteTask } = useContext(CalendarContext);
 
   const [name, setName] = useState("");
   const [color, setColor] = useState("#f44336");
@@ -36,32 +36,27 @@ function TaskForm() {
   };
 
   const _saveTask = () => {
- 
-    if(name.trim().length < 1) {
-        setError(true);
-        return;
+
+    if (name.trim().length < 1) {
+      setError(true);
+      return;
     }
     setError(false);
 
-    let dateCopy = new Date()
-    console.log("What is today?", date)
-
-    // Set task for tomorrow
-    let tomorrow = new Date(dateCopy)
-    tomorrow.setDate(dateCopy.getDate() + 1)
-
     saveTask({
       ...task,
+      original_date: new Date(date),
       date: date,
       name: name,
       color: color,
+      original_date: date
     });
     setDate(date);
     closeModal();
 
   };
 
-  const _deleteTask = ()=> {
+  const _deleteTask = () => {
     deleteTask(task.id);
     setDate(date);
     closeModal();
@@ -77,7 +72,7 @@ function TaskForm() {
       contentLabel="Task Form"
     >
       <div className="task-form">
-        
+
         <label>Name</label>
         <input
           name="name"
