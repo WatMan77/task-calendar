@@ -8,6 +8,7 @@ function App() {
   
   return (
     <div className="container">
+      <h1> Welcome to your daily helper!</h1>
       <CalendarState>
         <Header />
         <Calendar />
