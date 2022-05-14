@@ -31,7 +31,8 @@ header {
 
 header h1 {
   font-weight: bold;
-  margin: 0;  
+  margin: 0; 
+  color:black;
 }
 
 .day-names {
@@ -268,6 +269,12 @@ header h1 {
   text-align: center;
   font-weight: bold;
   border-radius: 5px;
+}
+
+.welcomeMsg {
+  color: rgb(30, 0, 91);
+  font-family: 'Merienda';
+  font-size: 22px;
 }
 
 input::placeholder{

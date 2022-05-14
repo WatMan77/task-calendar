@@ -8,7 +8,9 @@ function App() {
   
   return (
     <div className="container">
-      <h1> Welcome to your daily helper!</h1>
+      <div class="welcomeMsg">
+        <h1 >Welcome to your daily helper!</h1>
+      </div>      
       <CalendarState>
         <Header />
         <Calendar />
