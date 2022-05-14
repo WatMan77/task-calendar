@@ -1,30 +1,30 @@
 
 const dummy_tasks = [
     {name: "Watch Funny Panda Compilation",
-    color: "green"
+    color: "#4caf50"
     },
     {name: "Touch Grass",
-    color: "green"
+    color: "#4caf50"
     },
     {
     name: "How to carry a Duck video",
-    color: "green"
+    color: "#4caf50"
     },
     {
     name: "Call mom! (for no reason whatsoever)",
-    color: "green" 
+    color: "#4caf50" 
     },
     {
     name: "Watch dog videos",
-    color: "green",
+    color: "#4caf50",
     },
     {
     name:"Go to McDonalds",
-    color: "green"
+    color: "#4caf50"
     },
     {
     name: "Burgir",
-    color: "green" 
+    color: "#4caf50" 
     }
 ]
 
