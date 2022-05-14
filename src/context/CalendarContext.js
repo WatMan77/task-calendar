@@ -47,7 +47,7 @@ function CalendarState(props) {
   // Dispatch 
   const [state, dispatch] = useReducer((state, action) => {
     switch (action.type) {
-      case GET_DUMMY:
+       case GET_DUMMY:
         let index = Math.floor(Math.random() * dummy_tasks.length)
         let chosen_dummy = dummy_tasks[index];
       return{
@@ -68,7 +68,10 @@ function CalendarState(props) {
         
         //Database
         let database = getDatabase();
-        const daily_tasks = database.filter((task) => sameDay(today, task.date));
+        let daily_tasks = database.filter((task) => sameDay(today, new Date(task.date)));
+        database = database.filter((task) => !sameDay(new Date(task.date),today));
+        console.log(daily_tasks);
+
         daily_tasks.forEach(task => {
           task.date = tomorrow;
           if(sameDay(dayBefore, new Date(task.original_date))){
@@ -76,9 +79,8 @@ function CalendarState(props) {
           }
         });
   
-        database = database.filter((task) => task.date !== today);
         if(daily_tasks.length) {
-          database.push(daily_tasks);
+          database.push(...daily_tasks);
         }
 
         
@@ -126,8 +128,6 @@ function CalendarState(props) {
       case SAVE_TASK: {
         let db = getDatabase();
         const task = action.payload;
-        console.log(task.date);
-        console.log(task.original_date);
         if(!task.id) { // new Task
           task.id = uuidv4();
           db.push(task);
@@ -136,7 +136,6 @@ function CalendarState(props) {
             return t.id === task.id ? task : t;
           })
         }
-        console.log('Task saved?!', task)
         setDatabase(db);
         return {
           ...state
