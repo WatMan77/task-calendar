@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import Modal from "react-modal";
 import { CalendarContext } from "../context/CalendarContext";
 import { CirclePicker } from "react-color";
-import { sameDay } from "../context/CalendarContext";
 
 const customStyles = {
   content: {

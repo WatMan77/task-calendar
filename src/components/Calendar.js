@@ -4,7 +4,7 @@ import Day from "./Day";
 
 function Calendar() {
 
-  const { date, days, setDate, updateDaily } = useContext(CalendarContext);
+  const { date, days, setDate, updateDaily, getDummy } = useContext(CalendarContext);
 
   const decreaseDate = () => {
     const dateCopy = date
@@ -35,6 +35,7 @@ function Calendar() {
 
   useEffect(() => {
     updateDaily()
+    getDummy()
   }, [date])
 
   if (days.length < 1) return null;
