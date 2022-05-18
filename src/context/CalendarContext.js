@@ -33,7 +33,6 @@ export const sameDay = (a, b) => {
 
 function CalendarState(props) {
   
-  console.log('Lets go!')
   const initialState = {
     date: new Date(),
     days: [],
@@ -50,13 +49,26 @@ function CalendarState(props) {
         // Set task for tomorrow
         let tomorrow = new Date(dateCopy)
         tomorrow.setDate(dateCopy.getDate() + 1)
+
+        //THIS WORKS I DONT KNOW WHY!!
+        let dayBefore = new Date(dateCopy)
+        dayBefore.setDate(dateCopy.getDate() - 1)
         
         //Database
         let database = getDatabase();
         const daily_tasks = database.filter((task) => sameDay(today, task.date));
         daily_tasks.forEach(task => {
           task.date = tomorrow;
+          if(sameDay(dayBefore, new Date(task.original_date))){
+            task.date = dayBefore
+          }
         });
+//
+        //daily_tasks.forEach(task => {
+          //if(new Date(task.original_date).getDate() === task.date.getDate() + 1){
+            //task.date = new Date(task.original_date)
+          //}
+        //})
   
         database = database.filter((task) => task.date !== today);
         database.push(daily_tasks);
