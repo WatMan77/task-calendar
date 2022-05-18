@@ -23,7 +23,7 @@ function Day({day, date}) {
                     {day.tasks.map(task=>(
                         <Task key={task.id} task={task} style={getStyle(task.color)}/>
                     ))}
-                    {sameDay(day.date, new Date()) ?  <DummyTask key={uuidv4()} task={dummy_task} style={{background: dummy_task.color, color: contrast(dummy_task.color)}}/> : null}
+                    {/* sameDay(day.date, new Date()) ?  <DummyTask key={uuidv4()} task={dummy_task} style={{background: dummy_task.color, color: contrast(dummy_task.color)}}/> : null */}
                               
                 </div>
                 <h3> {day.date.getDate()} </h3>

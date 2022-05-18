@@ -33,13 +33,13 @@ function Calendar() {
     // eslint-disable-next-line
   }, []);
 
-  useEffect(() => {
+  /* useEffect(() => {
     updateDaily()
   }, [date])
 
   useEffect( () => {
     getDummy()
-  }, [dummy_task])
+  }, [dummy_task]) */
 
   if (days.length < 1) return null;
 
