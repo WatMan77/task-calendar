@@ -71,13 +71,16 @@ function CalendarState(props) {
 
         //Database
         let database = getDatabase();
-        console.log('Dummies found!', database.filter(x => x.isDummy))
-
         let dummies = []
-        const daily_tasks = database.filter((task) => sameDay(today, task.date));
-        daily_tasks.forEach(task => {
+        let daily_tasks = database.filter((task) => sameDay(today, new Date(task.date)));
+        database = database.filter((task) => !sameDay(new Date(task.date), today));
+        console.log(daily_tasks);
 
-          task.date = tomorrow;
+        daily_tasks.forEach(task => {
+          if (!task.isDummy) {
+            task.date = tomorrow;
+          }
+          
           if (sameDay(dayBefore, new Date(task.original_date))) {
             task.date = dayBefore
           } else {
@@ -92,16 +95,15 @@ function CalendarState(props) {
                 date: state.date,
                 color: chosen_dummy.color
               }
-              console.log(dummy)
+              console.log('Dummy given date', state.date, dummy.isDummy)
               dummies.push(dummy)
 
             }
           }
         });
 
-        database = database.filter((task) => sameDay(task.date, today));
         if (daily_tasks.length) {
-          database = database.concat(daily_tasks);
+          database.push(...daily_tasks);
         }
 
         console.log("What are dummies?", dummies)
@@ -152,8 +154,6 @@ function CalendarState(props) {
       case SAVE_TASK: {
         let db = getDatabase();
         const task = action.payload;
-        console.log(task.date);
-        console.log(task.original_date);
         if (!task.id) { // new Task
           task.id = uuidv4();
           db.push(task);
@@ -163,7 +163,6 @@ function CalendarState(props) {
             return t.id === task.id ? task : t;
           })
         }
-        console.log('Task saved?!', task)
         setDatabase(db);
         return {
           ...state
