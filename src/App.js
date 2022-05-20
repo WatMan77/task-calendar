@@ -9,7 +9,7 @@ function App() {
   
   return (
     <div className="container">
-      <div class="welcomeMsg">
+      <div className="welcomeMsg">
         <h1 >Welcome to your daily helper!</h1>
       </div>      
       <CalendarState>
