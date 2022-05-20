@@ -58,7 +58,6 @@ function CalendarState(props) {
         const today = state.date
         let dateCopy = state.date
 
-        console.log('Called!!')
 
 
         // Set task for tomorrow
@@ -71,10 +70,10 @@ function CalendarState(props) {
 
         //Database
         let database = getDatabase();
+
         let dummies = []
         let daily_tasks = database.filter((task) => sameDay(today, new Date(task.date)));
         database = database.filter((task) => !sameDay(new Date(task.date), today));
-        console.log(daily_tasks);
 
         daily_tasks.forEach(task => {
           if (!task.isDummy) {
@@ -82,7 +81,10 @@ function CalendarState(props) {
           }
           
           if (sameDay(dayBefore, new Date(task.original_date))) {
+            // Return task to original date
+            // and remove the dummy tasks from that date
             task.date = dayBefore
+            database = database.filter(x => !(x.isDummy && sameDay(dayBefore, x.date)))
           } else {
             if (!task.isDummy) {
               let index = Math.floor(Math.random() * dummy_tasks.length)
@@ -95,7 +97,6 @@ function CalendarState(props) {
                 date: state.date,
                 color: chosen_dummy.color
               }
-              console.log('Dummy given date', state.date, dummy.isDummy)
               dummies.push(dummy)
 
             }
@@ -106,9 +107,7 @@ function CalendarState(props) {
           database.push(...daily_tasks);
         }
 
-        console.log("What are dummies?", dummies)
         database = database.concat(dummies)
-        console.log('Dummies at the end:', database.filter(x => x.isDummy))
         setDatabase(database);
 
         //let new_days = state.days.map( day => sameDay(today, day.date) ? {date: today, tasks: []} : day);
