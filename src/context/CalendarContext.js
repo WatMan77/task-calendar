@@ -71,6 +71,8 @@ function CalendarState(props) {
         //Database
         let database = getDatabase();
 
+        console.log(database.map(x => x.time))
+
         let dummies = []
         let daily_tasks = database.filter((task) => sameDay(today, new Date(task.date)));
         database = database.filter((task) => !sameDay(new Date(task.date), today));

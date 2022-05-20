@@ -27,6 +27,7 @@ function TaskForm() {
     if (task) {
       setName(task.name || "");
       setColor(task.color || "#f44336");
+      setTime(task.time || "")
     }
   }, [task]);
 
@@ -43,13 +44,16 @@ function TaskForm() {
     }
     setError(false);
 
+    console.log('Saving with time:', timeOfDay)
+
     saveTask({
       ...task,
       original_date: new Date(date),
       date: date,
       name: name,
       color: color,
-      original_date: date
+      original_date: date,
+      time: timeOfDay
     });
     setDate(date);
     closeModal();
