@@ -21,6 +21,7 @@ function TaskForm() {
   const [name, setName] = useState("");
   const [color, setColor] = useState("#f44336");
   const [error, setError] = useState(false);
+  const [timeOfDay, setTime] = useState("");
 
   useEffect(() => {
     if (task) {
@@ -79,6 +80,15 @@ function TaskForm() {
           onChange={(e) => setName(e.target.value)}
           type="text"
           placeholder="Task Name"
+        />
+        <label>Time of Day</label> 
+        <input
+        name="timeOfDay"
+        value={timeOfDay}
+        onChange={(e) => setTime(e.target.value)}
+        type="time"
+        placeholder="booga" 
+        //testing for git       
         />
         <label>Color</label>
 
