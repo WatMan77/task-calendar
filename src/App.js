@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="container">
       <div className="welcomeMsg">
-        <h1 >Welcome to your daily helper!</h1>
+        <h1 >Welcome to Scamlendar!</h1>
       </div>      
       <CalendarState>
         <Header />
