@@ -4,27 +4,7 @@ import Day from "./Day";
 
 function Calendar() {
 
-  const {dummy_task, date, days, setDate, updateDaily, getDummy } = useContext(CalendarContext);
-
-  const decreaseDate = () => {
-    const dateCopy = date
-    let previous = new Date(date)
-    previous.setDate(dateCopy.getDate() - 1)
-
-    setDate(previous)
-
-    return previous
-  }
-
-  const increaseDate = () => {
-    const dateCopy = date
-    let previous = new Date(date)
-    previous.setDate(dateCopy.getDate() + 1)
-
-    setDate(previous)
-
-    return previous
-  }
+  const { date, days, setDate, updateDaily } = useContext(CalendarContext);
 
   useEffect(() => {
     setDate(date);
@@ -47,16 +27,6 @@ function Calendar() {
 
   return (
     <div>
-      <div>
-        <button className="button button-red" onClick={() => decreaseDate()}>
-          Decrease
-        </button>
-      </div>
-      <div>
-        <button className="button button-green" onClick={() => increaseDate()}>
-          Increase
-        </button>
-      </div>
       <div className="calendar borderless day-names">
         {names.map(name => <h5 key={name}>{name}</h5>)}
       </div>
